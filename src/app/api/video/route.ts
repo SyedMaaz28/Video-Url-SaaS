@@ -1,9 +1,8 @@
 import { NextResponse } from "next/server";
-import { saveVideo } from "@/lib/videoDb";
+import { saveVideo } from "@/lib/videoKV";
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const { id, url } = body;
+  const { id, url } = await req.json();
 
   if (!id || !url) {
     return NextResponse.json(
@@ -12,7 +11,7 @@ export async function POST(req: Request) {
     );
   }
 
-  saveVideo(id, url);
+  await saveVideo(id, url);
 
   return NextResponse.json({ success: true });
 }

@@ -1,4 +1,4 @@
-import { getVideo } from "@/lib/videoDb";
+import { getVideo } from "@/lib/videoKV";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -6,7 +6,7 @@ type Props = {
 
 export default async function VideoPage({ params }: Props) {
   const { id } = await params;
-  const videoUrl = getVideo(id);
+  const videoUrl = await getVideo(id);
 
   if (!videoUrl) {
     return (
